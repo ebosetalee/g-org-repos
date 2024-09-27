@@ -8,7 +8,7 @@ export class GithubController extends BaseController {
         const orgName = req.query.org;
         const page = req.query.page || 1;
 
-        const repositories = await githubService.githubAPI(orgName.toString(), Number(page));
+        const repositories = await githubService.githubAPI(`${orgName}`, Number(page));
 
         const filtered = await Promise.all(
             repositories.map(async (repo: any) => {
@@ -16,6 +16,7 @@ export class GithubController extends BaseController {
                 const branches = await githubService.fetchBranches(repo.branches_url);
 
                 return {
+                    id: repo.id,
                     name: repo.name,
                     url: repo.html_url,
                     language: repo.language,

@@ -1,6 +1,6 @@
 import logger from "./logger";
 import Https from "./https";
-import env from "../../common/config/env";
+import env from "../config/env";
 
 const githubToken = env.github_token;
 
@@ -30,13 +30,13 @@ class githubService {
     async fetchBranches(url: string): Promise<number> {
         try {
             const formattedUrl = url.replace("{/branch}", "");
-            
+
             const { data } = await this.github.get<any[]>(formattedUrl);
-            
+
             return data.length;
         } catch (error) {
-            logger.error('Error fetching branches:', error.message);
-            
+            logger.error("Error fetching branches:", error.message);
+
             return 0;
         }
     }

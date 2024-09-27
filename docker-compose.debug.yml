@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  gorgrepos:
+    image: gorgrepos
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: development
+    ports:
+      - 4654:4654
+      - 9229:9229
+    command: ["node", "--inspect=0.0.0.0:9229", "app.js"]

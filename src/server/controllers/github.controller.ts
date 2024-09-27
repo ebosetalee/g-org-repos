@@ -44,6 +44,15 @@ export class GithubController extends BaseController {
 
         return this.handleSuccess(req, res, response, 200);
     });
+
+    saveRepositories = this.asyncWrapper(async (req: Request, res: Response) => {
+        const data: any = req.body;
+
+        // check if in the db
+
+        // store or update db
+        return data;
+    });
 }
 
 const github = new GithubController();

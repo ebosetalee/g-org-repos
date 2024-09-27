@@ -36,6 +36,7 @@ class githubService {
             return data.length;
         } catch (error) {
             logger.error("Error fetching branches:", error.message);
+            logger.error(error);
 
             return 0;
         }

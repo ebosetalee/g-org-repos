@@ -27,10 +27,9 @@ export class BaseController {
      * @param message Optional error message. Useful for hiding internal errors from clients.
      */
     handleError = (req: Request, res: Response, err: Error | any, message?: string) => {
-        // logger.error(err);
-		logger.error("yikes")
-		// logger.debug(err.stack.)
-		
+        logger.error(err);
+        // logger.debug(err.stack.)
+
         const error = {
             code: Number(err.status) || BAD_REQUEST,
             message: err.message || "Something went wrong try again later",
@@ -66,7 +65,6 @@ export class BaseController {
     };
     asyncWrapper = (fn: Function) => (req: any, res: any, next: any) => {
         Promise.resolve(fn(req, res, next)).catch(err => {
-            console.error("Error caught in asyncWrapper:");
             this.handleError(req, res, err);
         });
     };

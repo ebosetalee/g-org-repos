@@ -24,22 +24,24 @@ function App() {
   }
 
   useEffect(() => {
-    console.log(repos)
-    if (!repos[0]) return;
-  }, [repos]);
+    if (page == 1) return;
+    if (page) {
+      fetchRepositories(org, page).then(data => setRepos(prev => [...prev, ...data]));
+    }
+  }, [org, page]);
 
   return (
-    // <div>
-    //   <h1>GitHub Organization Repositories</h1>
-    //   <RepoList />
-    // </div>
+    // <h1>GitHub Organization Repositories</h1>
     <div className="App">
+      <h1 className="repo-list-heading">GitHub Repositories</h1>
       <form onSubmit={handleInput}>
         <label htmlFor="org name">Organisation Name </label>
         <input
           id="org name"
           value={org}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setPage(1)
+            setRepos([])
             setOrg(e.target.value)
           }}
           placeholder="Enter GitHub org name"
@@ -49,18 +51,15 @@ function App() {
       </form>
       <ul className='repos'>
         {repos.map(repo => (
-          <li key={repo.id}>
-            <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
-              {repo.name}
-            </a>
+          <li key={repo.id} className="details">
+            <input type="checkbox" />
+            <span>Name: {repo.name}</span>
+            <a href={repo.html_url}>URL</a>
             <span>Language: {repo.language}</span>
             <span>Branches: {repo.branches}</span></li>
         ))}
       </ul>
       <button onClick={() => setPage(page => page + 1)}>Load more</button>
-      <p>
-        Edit <code>src/App.tsx</code> and save to test HMR
-      </p>
     </div>
     // <p className="read-the-docs">
     //   Click on the Vite and React logos to learn more

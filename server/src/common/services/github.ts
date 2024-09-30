@@ -4,6 +4,17 @@ import env from "../config/env";
 
 const githubToken = env.github_token;
 
+interface FetchBranches {
+    total_branches: number;
+    branches: branchesResponse[] | undefined;
+}
+
+interface branchesResponse {
+    name: string;
+    commit: object;
+    protected: boolean
+}
+
 class githubService {
     github: Https;
 
@@ -27,18 +38,18 @@ class githubService {
         }
     }
 
-    async fetchBranches(url: string): Promise<number> {
+    async fetchBranches(url: string): Promise<FetchBranches> {
         try {
             const formattedUrl = url.replace("{/branch}", "");
 
-            const { data } = await this.github.get<any[]>(formattedUrl);
+            const { data } = await this.github.get<branchesResponse[]>(formattedUrl);
 
-            return data.length;
+            return { total_branches: data.length, branches: data };
         } catch (error) {
             logger.error("Error fetching branches:", error.message);
             logger.error(error);
 
-            return 0;
+            return { total_branches: 0, branches: null };
         }
     }
 }

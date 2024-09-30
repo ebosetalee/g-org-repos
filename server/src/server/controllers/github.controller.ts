@@ -20,7 +20,7 @@ export class GithubController extends BaseController {
                     name: repo.name,
                     url: repo.html_url,
                     language: repo.language,
-                    branches
+                    ...branches
                 };
             })
         );

@@ -34,6 +34,7 @@ class githubService {
 
             return data;
         } catch (err) {
+            err.response.data.code = err.status
             throw err.response.data;
         }
     }

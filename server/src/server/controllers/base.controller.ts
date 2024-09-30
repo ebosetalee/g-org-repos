@@ -28,38 +28,12 @@ export class BaseController {
      */
     handleError = (req: Request, res: Response, err: Error | any, message?: string) => {
         logger.error(err);
-        // logger.debug(err.stack.)
 
         const error = {
-            code: Number(err.status) || BAD_REQUEST,
+            code: err.code || BAD_REQUEST,
             message: err.message || "Something went wrong try again later",
             metadata: err
         };
-
-        // if (err.name == "ValidationError") {
-        //     if (typeof err.message == "string") {
-        //         error.message = err.message.replace(/"/g, "");
-        //     } else {
-        //         error.message = Object.values(err.errors)
-        //             .map((value: { message: string }): string => value.message)
-        //             .join(",");
-        //     }
-        //     error.code = err.code;
-        // }
-
-        // if (err.code === 11000) {
-        //     error.message = `Duplicate value entered for ${Object.keys(err.keyValue)} field, please choose another value`;
-        //     error.code = CONFLICT;
-        // }
-
-        // if (err.name == "CastError") {
-        //     if (err.path.match(/id/i)) {
-        //         error.message = `No item found with id : ${err.value}`;
-        //     } else {
-        //         error.message = err.message.replace(/"/g, "");
-        //     }
-        //     error.code = NOT_FOUND;
-        // }
 
         return res.status(error.code).json(error);
     };

@@ -14,7 +14,7 @@ export class ControllerError extends Error {
 
 export class validationError extends ControllerError {
 	metadata: Record<string, object>;
-	constructor(message: string, metadata: Record<string, object>) {
+	constructor(message: string, metadata?: Record<string, object>) {
 		super(message);
 		this.metadata = metadata;
 		this.code = PRECONDITION_FAILED;
@@ -49,60 +49,6 @@ export class NotFoundError extends ControllerError {
 export class InvalidSecretKeyError extends ControllerError {
 	constructor() {
 		const errorMessage = `the secret key provided doesn't exist`;
-		super(errorMessage);
-
-		this.code = UNAUTHORIZED;
-	}
-}
-
-export class MissingAuthHeaderError extends ControllerError {
-	constructor() {
-		const errorMessage = `authorization token not found`;
-		super(errorMessage);
-
-		this.code = UNAUTHORIZED;
-	}
-}
-
-export class InvalidAuthTokenError extends ControllerError {
-	constructor() {
-		const errorMessage = `Access Denied! Token Expired`;
-		super(errorMessage);
-
-		this.code = UNAUTHORIZED;
-	}
-}
-
-export class AccountNotFoundError extends ControllerError {
-	constructor(id: string) {
-		const errorMessage = `account with id: (${id}) does not exist`;
-		super(errorMessage);
-
-		this.code = BAD_REQUEST;
-	}
-}
-
-export class AccountExistsError extends ControllerError {
-	constructor() {
-		const errorMessage = "A user with matching details exists";
-		super(errorMessage);
-
-		this.code = BAD_REQUEST;
-	}
-}
-
-export class AccountNotExistsError extends ControllerError {
-	constructor() {
-		const errorMessage = "account does not exist";
-		super(errorMessage);
-
-		this.code = BAD_REQUEST;
-	}
-}
-
-export class LoginAuthenticationError extends ControllerError {
-	constructor() {
-		const errorMessage = "Incorrect email or password supplied";
 		super(errorMessage);
 
 		this.code = UNAUTHORIZED;

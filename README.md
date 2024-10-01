@@ -1,6 +1,67 @@
 # G-ORG-REPOS
 
-### Description
+## Setup
+
+Create a `.env` file in the root directory of the project and fill it with values using the template in [`env.example`](./env.example).
+
+If you are using Docker, create a `.docker.env` file and fill it with values using the template in [`env.example`](./env.example).
+
+**The project uses MongoDB to run basic operation.**
+
+Install dependencies
+
+```bash
+# Install deps
+# With npm (remove yarn.lock)
+npm install
+
+# With Yarn
+yarn
+```
+
+## Running the project
+
+This project uses node -v `20.14.0` above
+
+```shell
+# To use the accurate node -v
+# check current version
+
+node -v
+
+# if not on 18; install v18 either with brew
+brew install node@20
+
+# or use nvm
+
+nvm install 20.14.0
+
+# If v18 is available on your system
+# Run
+
+nvm use 20
+```
+
+Once the project is on the right node version. Run the project environment on either `development`, `staging` or `production`
+
+Then start the project with the following
+
+```shell
+# To start the project
+# Development
+npm run dev
+
+# Production
+npm start
+```
+
+If you choose to use Docker for development,
+
+```bash
+docker compose -f ./docker-compose.yml up
+```
+
+## Project Description
 Create a full-stack application where user enters a github ORG name in text input and retrieve
 a list or repositories belonging to this ORG.
 

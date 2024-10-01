@@ -26,6 +26,7 @@ services:
       - NODE_ENV=development
       - MONGO_URL=mongodb://mongo:27017/go-org-repos 
       - GITHUB_API_TOKEN=${GITHUB_API_TOKEN}
+    env_file: ./.docker.env
     depends_on:
       - mongo 
     volumes:

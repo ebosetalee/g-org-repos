@@ -29,14 +29,14 @@ This project uses node -v `20.14.0` above
 
 node -v
 
-# if not on 18; install v18 either with brew
+# if not on 20; install v20 either with brew
 brew install node@20
 
 # or use nvm
 
 nvm install 20.14.0
 
-# If v18 is available on your system
+# If v20 is available on your system
 # Run
 
 nvm use 20
@@ -101,6 +101,6 @@ FE, BE + DB
 - How usable and clear the interface is.
 - How clear and well written the code is.
 - Use of best practices, DRY.
-- Quality of the tests.
+- Quality of the tests. //implementing tests
 - Error handling.
 - Completion time.

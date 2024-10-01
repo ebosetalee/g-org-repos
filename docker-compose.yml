@@ -1,10 +1,8 @@
-version: '3.8'
-
 services:
   frontend:
     build:
       context: ./Client
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
     ports:
       - 5173:5173
     environment:
@@ -19,13 +17,12 @@ services:
   backend:
     build:
       context: ./Server
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
     ports:
       - 4654:4654 
     environment:
       - NODE_ENV=development
       - MONGO_URL=mongodb://mongo:27017/go-org-repos 
-      - GITHUB_API_TOKEN=${GITHUB_API_TOKEN}
     env_file: ./.docker.env
     depends_on:
       - mongo 
@@ -37,7 +34,7 @@ services:
     image: mongo:latest
     container_name: mongodb
     ports:
-      - "27017:27017" 
+      - "27019:27017"
     volumes:
       - mongo-data:/data/db 
 

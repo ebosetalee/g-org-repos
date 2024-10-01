@@ -11,7 +11,7 @@
     "noUnusedLocals": true,
     "moduleResolution": "node",
     "baseUrl": "./server",
-    "typeRoots": ["src/typings", "./node_modules/@types"],
+    "typeRoots": ["./node_modules/@types"],
     "types": ["jest", "node"],
     "esModuleInterop": true
   },

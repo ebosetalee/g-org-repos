@@ -1,10 +1,8 @@
-FROM node:lts-alpine
-ENV NODE_ENV=production
-WORKDIR /usr/src/app
-COPY ["package.json", "package-lock.json*"]
+FROM node:20.14.0-alpine
+ENV NODE_ENV=staging
+WORKDIR /app
+COPY package.json ./
 RUN npm install 
 COPY . .
 EXPOSE 4654
-RUN chown -R node /usr/src/app
-USER node
 CMD ["npm", "run", "start"]

@@ -4,7 +4,7 @@
   "description": "Retrieves a list of public repositories belonging to an inputed Github Organisation",
   "main": "app.js",
   "scripts": {
-    "start": "npm run build",
+    "start": "npm run compile",
     "compile": "tsc && node dist/index.js",
     "dev": "nodemon --watch src/ --exec \"npm run compile\" --verbose -e ts",
     "dev:start": "tsc -w -e & nodemon ./dist",

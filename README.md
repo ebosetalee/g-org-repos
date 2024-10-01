@@ -63,6 +63,12 @@ docker compose -f ./docker-compose.yml up
 # can add --build
 ```
 
+### API Documentation
+The Postman API documentation can be found at [G-ORG-REPOS](https://documenter.getpostman.com/view/24670510/2sAXxJiaMs)
+
+
+
+#
 ## Project Description
 Create a full-stack application where user enters a github ORG name in text input and retrieve
 a list or repositories belonging to this ORG.

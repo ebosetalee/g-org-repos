@@ -3,6 +3,7 @@ import githubService from "../../common/services/github";
 import { BaseController } from "./base.controller";
 import { Request, Response } from "express";
 import { validationError } from "../../common/errors";
+import { CREATED, OK } from "http-status";
 
 interface saveReposRequest {
     repo_id: number;
@@ -47,7 +48,7 @@ export class GithubController extends BaseController {
             data: filtered
         };
 
-        return this.handleSuccess(req, res, response, 200);
+        return this.handleSuccess(req, res, response, OK);
     });
 
     saveRepositories = this.asyncWrapper(async (req: Request, res: Response) => {
@@ -60,7 +61,11 @@ export class GithubController extends BaseController {
         // check if in the db {repo_id: number, checkbox: bool expanded: bool} and store or update
         await this.repo.update({ repo_id, orgName }, { expanded, checkbox });
 
-        return this.handleSuccess(req, res, { data: null, message: "" }, 200);
+        const response = {
+            message: "Repositories stored Successfully",
+            data: null
+        };
+        return this.handleSuccess(req, res, response, CREATED);
     });
 }
 

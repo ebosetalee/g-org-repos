@@ -17,7 +17,6 @@ export class GithubController extends BaseController {
         this.repo = GithubRepository;
     }
     getRepositories = this.asyncWrapper(async (req: Request, res: Response) => {
-        // logger.info("retrieving repositories")
         const orgName = req.query.org;
         const page = req.query.page || 1;
 
@@ -28,30 +27,21 @@ export class GithubController extends BaseController {
                 // Fetch branches for the repository
                 const branches = await githubService.fetchBranches(repo.branches_url);
 
+                // Include previous expansion from DB
+                const data = await this.repo.byQuery({ repo_id: repo.id, orgName }, "expanded checkbox");
+
                 return {
                     id: repo.id,
                     name: repo.name,
                     url: repo.html_url,
                     language: repo.language,
-                    ...branches
+                    ...branches,
+                    expanded: !!data?.expanded,
+                    checkbox: !!data?.checkbox
                 };
             })
         );
 
-        // Include previous selections from DB
-        // const repoIds = repos.map((repo: any) => repo.id);
-        // const selections = await Repository.find({ repoId: { $in: repoIds } });
-
-        // // Attach checkbox status to response
-        // const updatedRepos = repos.map((repo: any) => {
-        //     const foundSelection = selections.find(selection => selection.repoId === repo.id);
-        //     return {
-        //         ...repo,
-        //         // isSelected: !!foundSelection
-        //     };
-        // });
-
-        // res.status(200).json({ repos: updatedRepos });
         const response = {
             message: "Repositories Retrieved Successfully",
             data: filtered

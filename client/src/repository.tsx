@@ -21,13 +21,15 @@ interface Repo {
 
 function App() {
     const [org, setOrg] = useState('');
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
     //   const [hasMore, setHasMore] = useState(true);
     const [repos, setRepos] = useState<Repo[]>([]);
     const [expandedRepos, setExpandedRepos] = useState<number[]>([]);
 
     const fetchRepos = async () => {
         try {
+            if (page > 0) return;
+            setPage(1);
             const data: Repo[] = await fetchRepositories(org, page);
             setRepos((prev) => [...prev, ...data]);
             // set previously expanded repos
@@ -69,8 +71,10 @@ function App() {
                 variant="outlined"
                 value={org}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setPage(1)
+                    e.preventDefault()
+                    setPage(0)
                     setRepos([])
+                    setExpandedRepos([])
                     setOrg(e.target.value)
                 }}
                 fullWidth

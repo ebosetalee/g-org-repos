@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { TextField, Button, Container, List, ListItem, Typography, Checkbox, IconButton } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { TextField, Button, Container, List, ListItem, Typography, Checkbox } from "@mui/material";
 import { fetchRepositories, storeExpanded } from "./services/api";
 
 interface branchesResponse {
@@ -30,7 +29,7 @@ function App() {
         try {
             const data: Repo[] = await fetchRepositories(org, page);
             setRepos(prev => [...prev, ...data]);
-            setMore(true)
+            setMore(true);
 
             // set previously expanded repos
             data.map(repo => {
@@ -40,7 +39,7 @@ function App() {
                 return repo;
             });
 
-            if (data.length === 0) setMore(false);
+            if (data.length === 0|| data.length < 10) setMore(false);
         } catch (error) {
             console.error("Error fetching repositories:", error);
             setMore(false);
@@ -75,7 +74,7 @@ function App() {
                     setPage(1);
                     setRepos([]);
                     setExpandedRepos([]);
-                    setMore(false)
+                    setMore(false);
                     setOrg(e.target.value);
                 }}
                 fullWidth
@@ -98,7 +97,7 @@ function App() {
             <List>
                 {repos.map(repo => (
                     <ListItem key={repo.id}>
-                        <Checkbox />
+                        <Checkbox checked={expandedRepos.includes(repo.id)} onClick={() => toggleExpand(repo.id, org)} />
                         <Typography variant="body1" style={{ flex: 1 }}>
                             {repo.name}
                         </Typography>
@@ -111,9 +110,6 @@ function App() {
                         <Typography variant="body2" style={{ flex: 1 }}>
                             Branches: {repo.total_branches}
                         </Typography>
-                        <IconButton onClick={() => toggleExpand(repo.id, org)}>
-                            <ExpandMoreIcon />
-                        </IconButton>
 
                         {expandedRepos.includes(repo.id) && (
                             <List style={{ marginBottom: "24px" }}>
@@ -137,7 +133,7 @@ function App() {
                     </ListItem>
                 ))}
             </List>
-            {page > 0 && more && (
+            {page > 1 && more && (
                 <button
                     onClick={() => {
                         setPage(page => page + 1);

@@ -1,8 +1,21 @@
+import GithubRepository, { IGithub, Repository } from "../models/githubrepos";
 import githubService from "../../common/services/github";
 import { BaseController } from "./base.controller";
 import { Request, Response } from "express";
+import { validationError } from "../../common/errors";
 
+interface saveReposRequest {
+    repo_id: number;
+    orgName: string;
+    checkbox?: boolean;
+    expanded?: boolean;
+}
 export class GithubController extends BaseController {
+    repo: Repository<IGithub>;
+    constructor() {
+        super();
+        this.repo = GithubRepository;
+    }
     getRepositories = this.asyncWrapper(async (req: Request, res: Response) => {
         // logger.info("retrieving repositories")
         const orgName = req.query.org;
@@ -24,6 +37,7 @@ export class GithubController extends BaseController {
                 };
             })
         );
+
         // Include previous selections from DB
         // const repoIds = repos.map((repo: any) => repo.id);
         // const selections = await Repository.find({ repoId: { $in: repoIds } });
@@ -47,12 +61,16 @@ export class GithubController extends BaseController {
     });
 
     saveRepositories = this.asyncWrapper(async (req: Request, res: Response) => {
-        const data: any = req.body;
+        const { repo_id, expanded, checkbox, orgName }: saveReposRequest = req.body;
 
-        // check if in the db
+        if (!repo_id || !orgName) {
+            const required = !repo_id ? (!orgName ? "Repo Id and Organisation Name" : "Repo Id") : "Organisation Name";
+            throw new validationError(`${required} is required`);
+        }
+        // check if in the db {repo_id: number, checkbox: bool expanded: bool} and store or update
+        await this.repo.update({ repo_id, orgName }, { expanded, checkbox });
 
-        // store or update db
-        return data;
+        return this.handleSuccess(req, res, { data: null, message: "" }, 200);
     });
 }
 

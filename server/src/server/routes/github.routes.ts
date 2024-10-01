@@ -1,8 +1,10 @@
 import { Router } from "express";
 import github from "../controllers/github.controller";
 
-const userRouter = Router();
+const reposRouter = Router();
 
-userRouter.get("/repos", github.getRepositories);
+reposRouter.get("/repos", github.getRepositories);
 
-export default userRouter;
+reposRouter.post("/store", github.saveRepositories);
+
+export default reposRouter;

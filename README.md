@@ -55,10 +55,12 @@ npm run dev
 npm start
 ```
 
-If you choose to use Docker for development,
+To start with Docker,
 
 ```bash
+# Run
 docker compose -f ./docker-compose.yml up
+# can add --build
 ```
 
 ## Project Description

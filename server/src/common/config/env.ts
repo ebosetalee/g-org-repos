@@ -8,7 +8,7 @@ const requiredVariables = ["port"];
 /**
  * Environment variables required for both staging and production
  */
-const productionAndStagingVariables = ["mongo_url", "jwt_secret", "jwt_expiration"];
+const productionAndStagingVariables = ["mongo_url", "github_token"];
 
 /**
  * Requires MongoDB in production and staging, else uses MongoDB connection string directly in dev or any other environment
@@ -32,8 +32,6 @@ const env = {
 	port: Number(process.env.PORT),
 	mongo_url: process.env.MONGO_URL,
 
-	jwt_secret: process.env.JWT_SECRET,
-	jwt_expiration: process.env.JWT_EXPIRATION,
 	github_token: process.env.GITHUB_API_TOKEN
 };
 

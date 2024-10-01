@@ -2,18 +2,14 @@ import type { Config } from "@jest/types";
 
 // Sync object
 const config: Config.InitialOptions = {
+    clearMocks: true,
     verbose: true,
     roots: [
-        "<rootDir>/src"
+        "<rootDir>/server/src"
     ],
     preset: "ts-jest",
 
     moduleFileExtensions: ["ts", "tsx", "js"],
-
-    // A map from regular expressions to module names that allow to stub out resources with a single module
-    moduleNameMapper: {
-        "@app/(.*)": "<rootDir>/src/$1",
-    },
 
     testEnvironment: "node",
 
@@ -23,9 +19,9 @@ const config: Config.InitialOptions = {
         "^.+\\.(ts|tsx)$": "ts-jest",
     },
 
-    transformIgnorePatterns: ["<rootDir>/node_modules/(?!@foo)"],
-    // detectOpenHandles: true,
-    // forceExit: true,
+    transformIgnorePatterns: ["<rootDir>/server/node_modules/(?!@foo)"],
+    detectOpenHandles: true,
+    forceExit: true,
 };
 
 export default config;

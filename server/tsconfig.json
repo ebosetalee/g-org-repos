@@ -10,7 +10,7 @@
     "noImplicitAny": false,
     "noUnusedLocals": true,
     "moduleResolution": "node",
-    "baseUrl": "./src",
+    "baseUrl": "./server",
     "typeRoots": ["src/typings", "./node_modules/@types"],
     "types": ["jest", "node"],
     "esModuleInterop": true

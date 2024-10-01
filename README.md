@@ -12,7 +12,7 @@ Install dependencies
 
 ```bash
 # Install deps
-# With npm (remove yarn.lock)
+# With npm
 npm install
 
 # With Yarn

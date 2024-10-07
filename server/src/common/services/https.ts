@@ -52,4 +52,9 @@ export class Https {
     // You can add other HTTP methods (PUT, DELETE) similarly, if needed.
 }
 
+export interface HttpService<T> {
+	get<T>(endpoint: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>>;
+	post<T>(endpoint: string, data: any, config?: AxiosRequestConfig): Promise<AxiosResponse<T>>
+}
+
 export default Https;

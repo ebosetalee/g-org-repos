@@ -5,7 +5,7 @@ const config: Config.InitialOptions = {
     clearMocks: true,
     verbose: true,
     roots: [
-        "<rootDir>/server/src"
+        "./"
     ],
     preset: "ts-jest",
 
@@ -19,7 +19,7 @@ const config: Config.InitialOptions = {
         "^.+\\.(ts|tsx)$": "ts-jest",
     },
 
-    transformIgnorePatterns: ["<rootDir>/server/node_modules/(?!@foo)"],
+    transformIgnorePatterns: ["./node_modules/(?!@foo)"],
     detectOpenHandles: true,
     forceExit: true,
 };

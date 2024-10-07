@@ -6,14 +6,14 @@
     "lib": ["esnext", "esnext.asynciterable", "dom"],
     "sourceMap": true,
     "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDir": "./",
     "noImplicitAny": false,
     "noUnusedLocals": true,
     "moduleResolution": "node",
-    "baseUrl": "./server",
+    "baseUrl": "./",
     "typeRoots": ["./node_modules/@types"],
     "types": ["jest", "node"],
     "esModuleInterop": true
   },
-  "exclude": ["src/**/*.test.ts", "src/**/mocks/*.ts", "jest.config.ts"]
+  "exclude": ["dist", "node_modules"]
 }
